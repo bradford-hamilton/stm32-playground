@@ -33,6 +33,7 @@
 /* USER CODE BEGIN PD */
 
 #define EEPROM_ADDR (0x50 << 1) // 0xA0
+#define I2C_TIMEOUT 1000
 
 /* USER CODE END PD */
 
@@ -95,13 +96,13 @@ int main(void)
   uint8_t write_val[8] = "Hello";
   uint8_t read_val[8] = "";
 
-  if (HAL_I2C_Mem_Write(&hi2c1, EEPROM_ADDR, 0x0, I2C_MEMADD_SIZE_16BIT, write_val, sizeof(write_val), 1000) != HAL_OK) {
+  if (HAL_I2C_Mem_Write(&hi2c1, EEPROM_ADDR, 0x0, I2C_MEMADD_SIZE_16BIT, write_val, sizeof(write_val), I2C_TIMEOUT) != HAL_OK) {
     Error_Handler();
   }
 
-  HAL_Delay(1000);
+  HAL_Delay(500);
 
-  if (HAL_I2C_Mem_Read(&hi2c1, EEPROM_ADDR, 0x0, I2C_MEMADD_SIZE_16BIT, read_val, sizeof(read_val), 1000) != HAL_OK) {
+  if (HAL_I2C_Mem_Read(&hi2c1, EEPROM_ADDR, 0x0, I2C_MEMADD_SIZE_16BIT, read_val, sizeof(read_val), I2C_TIMEOUT) != HAL_OK) {
     Error_Handler();
   }
 
