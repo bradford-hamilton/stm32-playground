@@ -1,1 +1,2 @@
-# stm32-playground
+##### stm32-playground
+##### playing with STM32CubeIDE
