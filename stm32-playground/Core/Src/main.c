@@ -93,29 +93,30 @@ int main(void)
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
 
-  uint8_t write_val[8] = "Hello";
-  uint8_t read_val[8] = "";
-
-  if (HAL_I2C_Mem_Write(&hi2c1, EEPROM_ADDR, 0x0, I2C_MEMADD_SIZE_16BIT, write_val, sizeof(write_val), I2C_TIMEOUT) != HAL_OK) {
-    Error_Handler();
-  }
-
-  HAL_Delay(500);
-
-  if (HAL_I2C_Mem_Read(&hi2c1, EEPROM_ADDR, 0x0, I2C_MEMADD_SIZE_16BIT, read_val, sizeof(read_val), I2C_TIMEOUT) != HAL_OK) {
-    Error_Handler();
-  }
-
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
+  uint8_t write_val[8] = "Hello";
+  uint8_t read_val[8] = "";
+
   while (1)
   {
-    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
-    HAL_Delay(500);
+	HAL_Delay(5000);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
+
+    if (HAL_I2C_Mem_Write(&hi2c1, EEPROM_ADDR, 0x0, I2C_MEMADD_SIZE_16BIT, write_val, sizeof(write_val), I2C_TIMEOUT) != HAL_OK) {
+	  Error_Handler();
+    }
+
+    HAL_Delay(5000);
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
-    HAL_Delay(500);
+
+    if (HAL_I2C_Mem_Read(&hi2c1, EEPROM_ADDR, 0x0, I2C_MEMADD_SIZE_16BIT, read_val, sizeof(read_val), I2C_TIMEOUT) != HAL_OK) {
+	  Error_Handler();
+    }
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
